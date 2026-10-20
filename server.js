@@ -44,5 +44,8 @@ server.on('listening', () => {
 	console.log('Listening on ' + bind);
 });
 
-server.listen(port);
+// Alwaysdata fournit l'adresse d'écoute dans IP (en local elle n'existe pas :
+//  on écoute partout)
+server.listen(port, process.env.IP);
+
 

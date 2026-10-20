@@ -7,13 +7,20 @@ const swaggerUi = require('swagger-ui-express')
 const yaml = require('yamljs')
 const swaggerDocs = yaml.load(path.join(__dirname, 'swagger.yaml'))
 const app = express()
+
+// Derrière le proxy HTTPS d'Alwaysdata : lit l'en-tête X-Forwarded-Proto pour que req.protocol vaille "https"
+app.set('trust proxy', 1)
+
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet({
       crossOriginResourcePolicy: false,
     }));
-app.use('/images', express.static(path.join(__dirname, 'images')))
+// Cache navigateur de 30 jours pour les images : un fichier ne change jamais sous le même nom
+// (chaque envoi reçoit un nom unique avec la date), donc "immutable" évite même la revérification
+app.use('/images', express.static(path.join(__dirname, 'images'), { maxAge: '30d', immutable: true }))
 
 const db = require("./models");
 const userRoutes = require('./routes/user.routes');
