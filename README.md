@@ -2,7 +2,7 @@
 
 API du portfolio de l'architecte d'intérieur Sophie Bluel : projets, catégories et connexion.
 
-Elle a été **fournie par OpenClassrooms** pour le projet 3 de la formation *Intégrateur web*. Je l'ai ensuite **adaptée et sécurisée** pour la mettre en ligne comme **démo publique**, utilisée par :
+Elle a été **fournie par OpenClassrooms** pour le projet 3 de la formation *Développeur Web*. Je l'ai ensuite **adaptée et sécurisée** pour la mettre en ligne comme **démo publique**, utilisée par :
 - 👉 [la version React du site](https://github.com/grdRaphael/OC-Sophie_Bluel_REACT_version) — **démo en ligne : https://oc-sophie-bluel-react-version.vercel.app**
 - 👉 [la version JavaScript d'origine](https://github.com/grdRaphael/OC-Projet3-Portfolio-architecte-Sophie-Bluel), qui fonctionne aussi avec cette API (le contrat de l'API n'a pas changé)
 
@@ -107,4 +107,4 @@ sqlite3 database.sqlite < donnees-demo.sql
 
 ## Auteur
 
-[grdRaphael](https://github.com/grdRaphael) — formation Intégrateur web, OpenClassrooms. API d'origine fournie par OpenClassrooms.
+[grdRaphael](https://github.com/grdRaphael) — formation Développeur Web, OpenClassrooms. API d'origine fournie par OpenClassrooms.
