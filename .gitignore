@@ -1,3 +1,8 @@
 node_modules
+.DS_Store
 
-!images/.gitkeep
+# Secrets : jamais sur GitHub (modèle dans .env.example)
+.env
+
+# Généré sur le serveur à partir de donnees-demo.sql (URL de production)
+donnees-demo-prod.sql
