@@ -3,9 +3,6 @@ const path = require('path');
 const cors = require('cors')
 require('dotenv').config();
 const helmet = require('helmet');
-const swaggerUi = require('swagger-ui-express')
-const yaml = require('yamljs')
-const swaggerDocs = yaml.load(path.join(__dirname, 'swagger.yaml'))
 const app = express()
 
 // Derrière le proxy HTTPS d'Alwaysdata : lit l'en-tête X-Forwarded-Proto pour que req.protocol vaille "https"
@@ -30,5 +27,9 @@ db.sequelize.sync().then(()=> console.log('db is ready'));
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/works', worksRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+// Documentation Swagger servie en simples fichiers : notre page (docs/) + l'interface (swagger-ui-dist).
+// require.resolve trouve le dossier du paquet SANS l'exécuter : require('swagger-ui-dist') chargerait
+// tout le JavaScript de l'interface dans le serveur (environ 40 Mo de mémoire, pour rien)
+const swaggerUiDir = path.dirname(require.resolve('swagger-ui-dist/package.json'))
+app.use('/api-docs', express.static(path.join(__dirname, 'docs')), express.static(swaggerUiDir))
 module.exports = app;

@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
+    "start": "node --max-old-space-size=64 --max-semi-space-size=1 server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -21,8 +21,7 @@
     "sequelize": "^6.19.0",
     "sharp": "^0.35.5",
     "sqlite3": "^5.0.5",
-    "swagger-ui-express": "^4.6.3",
-    "yamljs": "^0.3.0"
+    "swagger-ui-dist": "^4.19.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
