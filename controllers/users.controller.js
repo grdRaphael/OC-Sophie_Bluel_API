@@ -26,22 +26,30 @@ exports.signup = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-	const user = await Users.findOne({where: {email: req.body.email}});
-	if(user === null){
-		return res.status(404).json({message: 'user not found'})
-	}else {
-		const valid = await bcrypt.compare(req.body.password, user.password)
-		if(!valid){
-			return res.status(401).json({ error: new Error('Not Authorized') })
+	const { email, password } = req.body;
+	if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
+		return res.status(400).json({ message: 'Must have email and password' });
+	}
+	try {
+		const user = await Users.findOne({ where: { email } });
+		if (user === null) {
+			return res.status(404).json({ message: 'user not found' });
+		}
+		const valid = await bcrypt.compare(password, user.password);
+		if (!valid) {
+			return res.status(401).json({ message: 'Not Authorized' });
 		}
 		return res.status(200).json({
 			userId: user.id,
 			token: jwt.sign(
-				{userId : user.id},
+				{ userId: user.id },
 				process.env.TOKEN_SECRET,
 				{ expiresIn: '24h' }
 			)
-		})
-
+		});
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ message: 'Server error' });
 	}
 }
+
