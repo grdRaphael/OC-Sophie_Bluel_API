@@ -22,6 +22,7 @@ Une démo publique avec un compte de test public, c'est une API ouverte à tous.
 | **Plafond de 20 projets** | Le disque ne peut pas déborder, même si quelqu'un change d'IP |
 | **`trust proxy`** | Derrière le proxy HTTPS de l'hébergeur : vraie IP du visiteur (pour la limite de débit) et URL d'images en `https` |
 | **Cache navigateur de 30 jours** (`immutable`) sur les images | Un fichier ne change jamais sous le même nom → affichage instantané au rechargement |
+| **Connexion protégée contre le plantage** : e-mail et mot de passe vérifiés (texte non vide, sinon 400) + `try / catch` (500 sobre) | Avant, une connexion **sans e-mail** arrêtait tout le serveur : Express 4 n'attrape pas les erreurs des fonctions `async`, et Node arrête le processus sur une promesse rejetée non gérée |
 | **Données de démo** (`donnees-demo.sql`) + **remise à zéro automatique** (`scripts/reset-demo.sh`) | La démo publique revient à ses 11 projets d'origine toutes les heures |
 
 Les middlewares de la route d'ajout sont ordonnés **du moins coûteux au plus coûteux** : limite de débit → token → plafond → réception du fichier → Sharp. Une requête abusive est refusée avant d'être traitée.
